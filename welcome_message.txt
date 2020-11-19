@@ -1,0 +1,11 @@
+Hey there {0.mention}. Lovely to have you.
+Welcome to the Chaos {0.mention}! Here, have a biscuit.
+Ocebot is in the building! To let you know that {0.mention} is in the building!
+Ph'nglui mglw'nafh {0.mention} Chaos.
+OMG {0.mention} is here! You can totally sit with us.
+It's so wonderful to see you {0.mention}. Take a look around.
+Well, we've gone and done it now. {0.mention} is awake.
+{0.mention}! DANGERZONE!
+EVERYONE STOP WHAT YOU ARE DOING! {0.mention} HAS ARRIVED!
+
+
