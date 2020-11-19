@@ -9,18 +9,19 @@ from dotenv import load_dotenv  # loads environment variables from an .env file 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')  # produces our discord token so its hidden in the visible code
 
-bot = commands.Bot(command_prefix='!')  # ! is the standard
+intents = discord.Intents.all()  # to use certain member tools (requires permission if bot on more than 10 servers)
+intents.members = True
+
+bot = commands.Bot(command_prefix='!', intents=intents)  # ! is the standard
 
 
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))  # prints below to confirm connection
-
-
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
-        print(f'Cog loaded:{filename}')
+    for filename in os.listdir('./cogs'):
+        if filename.endswith('.py'):
+            bot.load_extension(f'cogs.{filename[:-3]}')
+            print(f'Cog loaded:{filename}')
 
 
 bot.run(TOKEN)
