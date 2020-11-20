@@ -11,14 +11,9 @@ class New_Members(commands.Cog):
     async def on_member_join(self, member):
         """sends a welcome message in the channel when a new member joins"""
         system_channel = member.guild.system_channel
-        welcome_greeting = ["Hey there {0.mention}. Fancy seeing you here.".format(member),
-                            "Welcome to the Chaos {0.mention}! Have a biscuit.".format(member),
-                            "{0.mention} is in the building! Who let you in?".format(member),
-                            "Ph'nglui mglw'nafh {0.mention} Chaos".format(member),
-                            "Well, we've gone and done it now. {0.mention}'s awake.".format(member),
-                            "WOO! {0.mention}! WOO!".format(member)
-                            ]  # to add to
-        response = random.choice(welcome_greeting)
+        with open('welcome_message.txt', 'r') as reader:
+            welcome_message = random.choice(reader.readlines())
+            response = welcome_message.format(member)
         await system_channel.send(response)  # sends a random welcome_greeting to the 'general' channel.
 
     @commands.Cog.listener()

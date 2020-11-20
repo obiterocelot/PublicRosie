@@ -13,6 +13,7 @@ intents = discord.Intents.all()  # to use certain member tools (requires permiss
 intents.members = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)  # ! is the standard
+                                                         # intents needed for some member related 
 
 
 @bot.event
