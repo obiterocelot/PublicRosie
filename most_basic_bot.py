@@ -13,13 +13,13 @@ intents = discord.Intents.all()  # to use certain member tools (requires permiss
 intents.members = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)  # ! is the standard
-                                                         # intents needed for some member related 
-
+                                                         # intents needed for some member related commands/events
 
 @bot.event
 async def on_ready():
+    """confirmation of bot joining and loading up cogs"""
     print('We have logged in as {0.user}'.format(bot))  # prints below to confirm connection
-    for filename in os.listdir('./cogs'):
+    for filename in os.listdir('./cogs'):   #put all cogs for this bot in ./cogs file
         if filename.endswith('.py'):
             bot.load_extension(f'cogs.{filename[:-3]}')
             print(f'Cog loaded:{filename}')

@@ -7,6 +7,10 @@ class Daily_Inspiration(commands.Cog):
         self.bot = bot
         self.first_loop.start()
 
+    def daily_quote(self):
+        with open('quote_list.txt', 'r') as reader:
+            todays_quote = random.choice(reader.readlines())
+            print("Today's inspiration: " + todays_quote)
 
     @tasks.loop(minutes=60)
     async def first_loop(self):
@@ -23,7 +27,7 @@ class Daily_Inspiration(commands.Cog):
         release_time = 0
         minute = time.strftime("%M")
         if int(minute) == release_time:
-            print("release")
+            self.daily_quote()
             self.sleeper.start()
             self.timer.stop()
 
@@ -33,11 +37,10 @@ class Daily_Inspiration(commands.Cog):
         release_time = 8.0
         target = time.strftime("%H.%M")
         if float(target) > release_time:
-            print("Missed it - release anyway")
+            self.daily_quote()
         elif float(target) <= release_time:
             self.timer.start()
             self.sleeper.stop()
-
 
 def setup(bot):
     bot.add_cog(Daily_Inspiration(bot))
