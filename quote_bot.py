@@ -16,7 +16,7 @@ intents.members = True
 bot = commands.Bot(command_prefix='!', intents=intents)  # ! is the standard
                                                          # intents needed for some member related commands/events
 
-file = 'daily_inspirations'
+file = 'daily_inspirations_cog'
 bot.load_extension(file)    #specifically loads this cog. Not in cogs file as it is treated differently to mbb cogs
 
 @bot.event
