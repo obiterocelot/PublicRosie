@@ -27,5 +27,5 @@ async def time_out(member : discord.Member, ctx, *, reason=None):
     await member.add_roles(memberrole)
 
 async def alert_member(member, reason):
-    await member.send(f"You have been timed out for 30 seconds. Reason given: {reason}/n "
+    await member.send(f"You have been timed out for 30 seconds. Reason given: {reason} \n"
                       f"If you have any questions or difficulties, please contact a moderator")
