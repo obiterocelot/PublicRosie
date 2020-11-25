@@ -1,29 +1,31 @@
 import discord
 from time import sleep
 
-def check_for_timeout_role(ctx):
+async def check_for_timeout_role(ctx):
     guild = ctx.guild
     roles = guild.roles
     name_list = []
     for each in roles:
         name_list.append(each.name)
-        print(name_list)
-    if "timeout" in name_list:
-        print("There is already a role called Timeout")
+    if "Timeout" in name_list:
+        pass
     else:
         await create_timeout_role(guild)
 
-def create_timeout_role(guild)
+async def create_timeout_role(guild):
     permissions = discord.Permissions(permissions=1049600)
-    await guild.create_role(name="timeout", colour=discord.Colour(0xffffff), permissions=permissions)
+    await guild.create_role(name="Timeout", colour=discord.Colour(0xff0000), permissions=permissions)
 
-def time_out(ctx, member : discord.Member, *, reason=None):
-    role = discord.utils.get(ctx.guild.roles, name="timeout")
-    await member.add_roles(role)
+async def time_out(member : discord.Member, ctx, *, reason=None):
+    timeoutrole = discord.utils.get(ctx.guild.roles, name="Timeout")
+    memberrole = discord.utils.get(ctx.guild.roles, name="Member")
+    await member.add_roles(timeoutrole)
+    await member.remove_roles(memberrole)
     await alert_member(member, reason)
     sleep(30)
-    await member.remove_roles(role)
+    await member.remove_roles(timeoutrole)
+    await member.add_roles(memberrole)
 
-def alert_member(member, reason)
+async def alert_member(member, reason):
     await member.send(f"You have been timed out for 30 seconds. Reason given: {reason}/n "
                       f"If you have any questions or difficulties, please contact a moderator")

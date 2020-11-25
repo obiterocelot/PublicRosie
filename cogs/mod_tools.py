@@ -1,5 +1,6 @@
 import discord
-from discord.ext import commands, tasks
+import timeout
+from discord.ext import commands
 
 class Moderation(commands.Cog):
     def __init__(self, bot):
@@ -11,17 +12,20 @@ class Moderation(commands.Cog):
         """bulk clear command"""
         await ctx.channel.purge(limit=amount) #amount default 2 includes the !clear command and the message above it
 
+
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, *, reason=None):  # asterix=all parameters after member and reason will just be added to reason
+    async def kick(self, member: discord.Member, *, reason=None):  # asterix=all parameters after member and reason will just be added to reason
         """quick kick command with reasons"""
         await member.kick(reason=reason)
 
+
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member, *, reason=None):  # asterix=otherwise all spaces would be additional parameters
+    async def ban(self, member: discord.Member, *, reason=None):  # asterix=otherwise all spaces would be additional parameters
         """quick ban command with reasons"""
         await member.ban(reason=reason)
+
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
@@ -35,6 +39,14 @@ class Moderation(commands.Cog):
                 await ctx.guild.unban(user)
                 await ctx.send(f'Unbanned {user.name}#{user.discriminator}')
                 return
+
+
+    @commands.command()
+    @commands.has_permissions(kick_members=True)
+    async def timeout(self, ctx, member : discord.Member, *, reason=None):
+        await timeout.check_for_timeout_role(ctx)
+        await timeout.time_out(member, ctx, reason=reason)
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
