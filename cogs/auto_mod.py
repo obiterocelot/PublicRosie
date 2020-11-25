@@ -17,8 +17,9 @@ class Auto_mod(commands.Cog):
             banned_as_list = bad_words.split()
         for words in list_message:
             if words in banned_as_list:
-                await message.delete()
                 await timeout.time_out(member, ctx, reason="For using a banned word.")
+                await message.delete()
+
 
 
 def setup(bot):
