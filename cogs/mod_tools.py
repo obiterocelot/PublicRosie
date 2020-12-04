@@ -1,10 +1,12 @@
 import discord
 import timeout
+import strikes
 from discord.ext import commands
 
 class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
@@ -44,9 +46,10 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_permissions(kick_members=True)
     async def timeout(self, ctx, member : discord.Member, *, reason=None):
-        await timeout.check_for_timeout_role(ctx)
+        """30 sec timeout"""
+        await timeout.check_for_timeout_role(ctx)   #won't work without role, so check it exists and create it if it doesn't.
         await timeout.time_out(member, ctx, reason=reason)
-
+        strikes.new_warning(member)
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
