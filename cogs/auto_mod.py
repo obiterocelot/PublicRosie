@@ -1,24 +1,25 @@
-import string
+import cleanup
 import timeout
+import strikes
 from discord.ext import commands
+
 
 class Auto_mod(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+
     @commands.Cog.listener()
     async def on_message(self, message):
-        message_content = str(message.content)
-        message_lower = message_content.lower()
-        cleanup = message_lower.translate(str.maketrans('', '', string.punctuation))
-        list_message = cleanup.split()
+        """checks messages for banned_words. If word is found, issues a timeout."""
+        list_message = cleanup.easyreader(message)
         with open('bad_words.txt', 'r') as reader:
             bad_words = reader.read()
-            banned_as_list = bad_words.split()
+            banned_as_list = bad_words.split()  #Second module checking for banned words. To look at regular expressions
         for words in list_message:
             if words in banned_as_list:
-                await message.delete()
-                await timeout.time_out(message.author, message, reason="For using a banned word.")
+                await timeout.timeoutprocess(ctx, message.author, reason=None)
+                #issues time out - cannot interact with discord except to read/hear for 30sec. DM sent to inform.
 
 
 def setup(bot):

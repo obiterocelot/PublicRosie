@@ -1,4 +1,5 @@
 import discord
+import strikes
 from asyncio import sleep
 
 
@@ -38,3 +39,19 @@ async def alert_member(member, reason):
     """DMs member to alert them to their timeout"""
     await member.send(f"You have been timed out for 30 seconds. Reason given: {reason} \n"
                       f"If you have any questions or difficulties, please contact a moderator")
+
+async def perma_timeout(member : discord.Member, ctx):
+    timeoutrole = discord.utils.get(ctx.guild.roles, name="Timeout")  # finds the id for the particular roles
+    memberrole = discord.utils.get(ctx.guild.roles, name="Member")
+    await member.add_roles(timeoutrole)  # switch the Member role for the Timeout role
+    await member.remove_roles(memberrole)
+    await member.send(f"Due to continuous misbehaviour, you are under suspension until a moderator reviews your case. If you have any questions, please contact a moderator.")
+
+async def timeoutprocess(ctx, member, reason):
+    await check_for_timeout_role(ctx)
+    strikes.issue_warning(member)
+    timeout_type = strikes.check_timeout(member)
+    if timeout_type == True:
+        await perma_timeout(member, ctx)
+    if timeout_type == False:
+        await time_out(member, ctx)
