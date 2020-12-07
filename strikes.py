@@ -1,3 +1,4 @@
+import discord
 import ast
 
 def get_dict():
@@ -32,3 +33,20 @@ def check_timeout(member):
                 return True
             else:
                 return False
+
+async def strike_reset(ctx, member):
+    fulldict = get_dict()
+    timeoutrole = discord.utils.get(ctx.guild.roles, name="Timeout")  # finds the id for the particular roles
+    memberrole = discord.utils.get(ctx.guild.roles, name="Member")
+    await member.remove_roles(timeoutrole)
+    await member.add_roles(memberrole)
+    search = '#'.join((member.name, member.discriminator))
+    del fulldict[search]
+    append_dict(fulldict)
+
+async def strike_info(ctx):
+    embedded_var = discord.Embed(title="Strike Report", description="List of all users with a strike", color=0x8b0c3c)
+    with open('warnings.txt', 'r') as f:
+        content = f.read()
+        embedded_var.add_field(name="Users", value=content, inline=False)
+        await ctx.channel.send(embed=embedded_var)

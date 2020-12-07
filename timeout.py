@@ -23,7 +23,7 @@ async def create_timeout_role(guild):
     await guild.create_role(name="Timeout", colour=discord.Colour(0xff0000), permissions=permissions)
 
 
-async def time_out(member : discord.Member, ctx, *, reason=None):
+async def time_out(member : discord.Member, ctx, reason):
     """timeout for 30 secs"""
     timeoutrole = discord.utils.get(ctx.guild.roles, name="Timeout") #finds the id for the particular roles
     memberrole = discord.utils.get(ctx.guild.roles, name="Member")
@@ -54,4 +54,4 @@ async def timeoutprocess(ctx, member, reason):
     if timeout_type == True:
         await perma_timeout(member, ctx)
     if timeout_type == False:
-        await time_out(member, ctx)
+        await time_out(member, ctx, reason)

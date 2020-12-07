@@ -1,5 +1,6 @@
 import discord
 import timeout
+import strikes
 from discord.ext import commands
 
 class Moderation(commands.Cog):
@@ -43,10 +44,21 @@ class Moderation(commands.Cog):
 
 
     @commands.command()
-    @commands.has_permissions(kick_members=True)
+    @commands.has_permissions(ban_members=True)
     async def timeout(self, ctx, member : discord.Member, *, reason=None):
         """30 sec timeout"""
         await timeout.timeoutprocess(ctx, member, reason)
+
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def resetstrike(self, ctx, member : discord.Member):
+        await strikes.strike_reset(ctx, member)
+
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def strikeinfo(self, ctx):
+        await strikes.strike_info(ctx)
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

@@ -1,6 +1,5 @@
 import cleanup
 import timeout
-import strikes
 from discord.ext import commands
 
 
