@@ -8,18 +8,20 @@ class New_Members(commands.Cog):
         self.bot = bot
 
     async def check_for_role(self, member):
+        """double check to see if a member role has already been created"""
         guild = member.guild
         roles = guild.roles
         name_list = []
         for each in roles:
-            name_list.append(each.name)
+            name_list.append(each.name) # pull all roles into a name list for searching.
         if "Member" in name_list:
-            pass
+            pass    # ignore if the name is already in the list.
         else:
-            await self.create_member_role(guild)
+            await self.create_member_role(guild)    # else, create it.
 
     async def create_member_role(self, guild):
-        permissions = discord.Permissions(permissions=104287808)
+        """specific permissions for member role"""
+        permissions = discord.Permissions(permissions=104287808)    # permissions number taken from an online calculator.
         await guild.create_role(name="Member", colour=discord.Colour(0x318ad1), permissions=permissions)
 
     @commands.Cog.listener()
@@ -38,6 +40,7 @@ class New_Members(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
+        """advises in the server that someone has left."""
         print(f'{member} has left a server.')
 
 

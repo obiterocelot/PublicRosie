@@ -12,7 +12,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def clear(self, ctx, amount=2):
         """bulk clear command"""
-        await ctx.channel.purge(limit=amount) #amount default 2 includes the !clear command and the message above it
+        await ctx.channel.purge(limit=amount) # amount default 2 includes the !clear command and the message above it
 
 
     @commands.command()
@@ -33,8 +33,8 @@ class Moderation(commands.Cog):
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, *, member):  # don't convert to discord.Member as it isn't a server member, just a string
         """quick unban command with reasons"""
-        banned_users = await ctx.guild.bans() #pulls ban list
-        member_name, member_discriminator = member.split('#') #split the member name from the numerical discriminator
+        banned_users = await ctx.guild.bans() # pulls ban list
+        member_name, member_discriminator = member.split('#') # split the member name from the numerical discriminator
         for ban_entry in banned_users:
             user = ban_entry.user
             if (user.name, user.discriminator) == (member_name, member_discriminator):
@@ -52,11 +52,13 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def resetstrike(self, ctx, member : discord.Member):
+        """resetting a user's strike count"""
         await strikes.strike_reset(ctx, member)
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def strikeinfo(self, ctx):
+        """pulling the list of users with strikes into an embedded message"""
         await strikes.strike_info(ctx)
 
 

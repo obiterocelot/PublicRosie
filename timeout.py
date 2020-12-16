@@ -11,7 +11,7 @@ async def check_for_timeout_role(ctx):
     for each in roles:
         name_list.append(each.name) #creates a list of role names in the guild
     if "Timeout" in name_list:
-        pass    #if there is one called Timeout, nevermind
+        pass    #if there is one called Timeout, never mind
     else:
         await create_timeout_role(guild) #if there isn't, create the role
 
@@ -41,6 +41,7 @@ async def alert_member(member, reason):
                       f"If you have any questions or difficulties, please contact a moderator")
 
 async def perma_timeout(member : discord.Member, ctx):
+    """longterm timeout if strikes are above 3. Can be removed and reset by a mod"""
     timeoutrole = discord.utils.get(ctx.guild.roles, name="Timeout")  # finds the id for the particular roles
     memberrole = discord.utils.get(ctx.guild.roles, name="Member")
     await member.add_roles(timeoutrole)  # switch the Member role for the Timeout role
@@ -48,6 +49,7 @@ async def perma_timeout(member : discord.Member, ctx):
     await member.send(f"Due to continuous misbehaviour, you are under suspension until a moderator reviews your case. If you have any questions, please contact a moderator.")
 
 async def timeoutprocess(ctx, member, reason):
+    """calls the entire timeout process in order. Elements can also be called seperately"""
     await check_for_timeout_role(ctx)
     strikes.issue_warning(member)
     timeout_type = strikes.check_timeout(member)
