@@ -15,6 +15,7 @@ class Birthday(commands.Cog):
         channel = message.channel
         cleanmessage = cleanup.easyreader(message)
         new_message = " ".join(cleanmessage) # clean message so it could be searched with capitals etc
+        ids = self.bot.user.id
         if "happy birthday" in new_message:
             user = message.mentions[0] # pulls the first user mention. Will break if there is more than one
             if message.mentions == []:
@@ -24,7 +25,7 @@ class Birthday(commands.Cog):
 
             def check(message):
                 cleanmessage = cleanup.easyreader(message)
-                return message.channel == channel and "775418160290856972" in cleanmessage and "yes" in cleanmessage
+                return message.channel == channel and str(ids) in cleanmessage and "yes" in cleanmessage
                 # The about number is pulled as the bot's client id. Should work across all servers.
 
             try:
