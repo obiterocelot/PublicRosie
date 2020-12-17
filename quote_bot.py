@@ -23,7 +23,10 @@ bot.load_extension(file)    #specifically loads this cog. Not in cogs file as it
 async def on_ready():
     """confirmation of bot joining and reminder of cog loaded"""
     print('We have logged in as {0.user}'.format(bot))  # prints below to confirm connection
-    print(f'Cog loaded:{file}.py')
+    for filename in os.listdir('./cogs2'):   #put all cogs for this bot in ./cogs file
+        if filename.endswith('.py'):
+            bot.load_extension(f'cogs.{filename[:-3]}')
+            print(f'Cog loaded:{filename}')
 
 
 bot.run(TOKEN)

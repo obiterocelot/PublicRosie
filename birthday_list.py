@@ -38,3 +38,10 @@ def check_birthday(guild, member):
         return True
     else:
         return False
+
+def check_day(guild):
+    fulldict = get_dict(guild)
+    todaysdate = today.strftime("%d/%m/%y")
+    for name, date in fulldict.items():
+        if date == todaysdate:
+            return name
