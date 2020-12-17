@@ -12,7 +12,7 @@ class New_Server(commands.Cog):
     async def on_guild_join(self, guild):
         fileDir = os.path.dirname(os.path.abspath(__file__))  # Directory of the Module
         parentDir = os.path.dirname(fileDir)  # Directory of the Module directory
-        newPath = os.path.join(parentDir, "GuildDirectories/", str(guild.id))  # Get the directory for StringFunctions
+        newPath = os.path.join(parentDir, "GuildDirectories", str(guild.id))  # Get the directory for StringFunctions
 
         os.mkdir(newPath)
 
@@ -26,12 +26,12 @@ class New_Server(commands.Cog):
     async def on_guild_remove(self, guild):
         fileDir = os.path.dirname(os.path.abspath(__file__))  # Directory of the Module
         parentDir = os.path.dirname(fileDir)  # Directory of the Module directory
-        newPath = os.path.join(parentDir, "GuildDirectories/", str(guild.id))
+        newPath = os.path.join(parentDir, "GuildDirectories", str(guild.id))
 
         try:
             shutil.rmtree(newPath)
         except OSError as e:
-            print("Error: %s : %s" % (dir_path, e.strerror))
+            print("Error: %s : %s" % (newPath, e.strerror))
 
 
 def setup(bot):
