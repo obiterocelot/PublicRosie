@@ -1,9 +1,9 @@
-#import random
-#from discord.ext import commands
+import random
+from discord.ext import commands
 
-#class Daily_Inspiration(commands.Cog):
-#    def __init__(self, bot):
-#        self.bot = bot
+class Daily_Inspiration(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
 
 
 #    @commands.Cog.listener()
@@ -18,5 +18,5 @@
 #        await self.bot.close() #once completed, close bot down.
 
 
-#def setup(bot):
-#    bot.add_cog(Daily_Inspiration(bot))
+def setup(bot):
+    bot.add_cog(Daily_Inspiration(bot))
