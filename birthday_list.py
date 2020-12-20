@@ -41,9 +41,10 @@ def check_birthday(guild, member):
 
 def check_day(guild):
     fulldict = get_dict(guild)
+    today = date.today()
     todaysdate = today.strftime("%d/%m/%y")
     birthdays = []
-    for name, date in fulldict.items():
-        if date == todaysdate:
+    for name, bday in fulldict.items():
+        if bday == todaysdate:
             birthdays.append(name)
     return birthdays
