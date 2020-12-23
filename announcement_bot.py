@@ -25,7 +25,7 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(bot))  # prints below to confirm connection
     for filename in os.listdir('./cogs2'):   #put all cogs for this bot in ./cogs file
         if filename.endswith('.py'):
-            bot.load_extension(f'cogs.{filename[:-3]}')
+            bot.load_extension(f'cogs2.{filename[:-3]}')
             print(f'Cog loaded:{filename}')
 
 
