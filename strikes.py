@@ -60,7 +60,7 @@ async def strike_reset(ctx, member):
 
 async def strike_info(ctx):
     """sets up a Strike Report embedded message. Can be called by a mod command"""
-    newPath = get_dict(ctx)
+    newPath = get_path(ctx)
     embedded_var = discord.Embed(title="Strike Report", description="List of all users with a strike", color=0x8b0c3c)
     with open(newPath, 'r') as f:
         content = f.read()

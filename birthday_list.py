@@ -1,6 +1,7 @@
 import ast
 import os
 from datetime import date
+import discord
 
 def get_path(guild):
     fileDir = os.path.dirname(os.path.abspath(__file__))  # Directory of the Module
@@ -48,3 +49,21 @@ def check_day(guild):
         if bday == todaysdate:
             birthdays.append(name)
     return birthdays
+
+async def birthday_info(ctx):
+    """sets up a Birthday List embedded message. Can be called by a mod command"""
+    guild = ctx.guild
+    newPath = get_path(guild)
+    embedded_var = discord.Embed(title="Birthday List", description="List of User's Birthdays", color=0x8b0c3c)
+    with open(newPath, 'r') as f:
+        content = f.read()
+        embedded_var.add_field(name="Users", value=content, inline=False) # turns it into an embedded message
+        await ctx.channel.send(embed=embedded_var)
+
+async def birthday_del(ctx, member):
+    """resets the strike count and reverts the timeout role"""
+    guild = ctx.guild
+    fulldict = get_dict(guild)
+    search = '#'.join((member.name, member.discriminator))
+    del fulldict[search]
+    append_dict(guild, fulldict)

@@ -1,6 +1,7 @@
 import discord
 import timeout
 import strikes
+import birthday_list
 from discord.ext import commands
 
 class Moderation(commands.Cog):
@@ -60,6 +61,18 @@ class Moderation(commands.Cog):
     async def strikeinfo(self, ctx):
         """pulling the list of users with strikes into an embedded message"""
         await strikes.strike_info(ctx)
+
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def birthdaylist(self, ctx):
+        """pulling the list of users with birthdays recorded into an embedded message"""
+        await birthday_list.birthday_info(ctx)
+
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def delbday(self, ctx, member : discord.Member):
+        """resetting a user's strike count"""
+        await birthday_list.birthday_del(ctx, member)
 
 
 def setup(bot):
