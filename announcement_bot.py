@@ -17,14 +17,16 @@ bot = commands.Bot(command_prefix='!', intents=intents)  # ! is the standard
                                                          # intents needed for some member related commands/events
 
 
+for filename in os.listdir('./cogs2'):  # put all cogs for this bot in ./cogs file
+    if filename.endswith('.py'):
+        bot.load_extension(f'cogs2.{filename[:-3]}')
+        print(f'Cog loaded:{filename}')
+
 @bot.event
 async def on_ready():
     """confirmation of bot joining and reminder of cog loaded"""
     print('We have logged in as {0.user}'.format(bot))  # prints below to confirm connection
-    for filename in os.listdir('./cogs2'):   #put all cogs for this bot in ./cogs file
-        if filename.endswith('.py'):
-            bot.load_extension(f'cogs2.{filename[:-3]}')
-            print(f'Cog loaded:{filename}')
+
 
 
 bot.run(TOKEN)
