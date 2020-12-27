@@ -15,9 +15,9 @@ class Announcement(commands.Cog):
         for guild in guild_list:
             birthdays = birthday_list.check_day(guild)
             if len(birthdays) == 0:
-                response = "Happy birthday to {0}! I hope it's excellent! \n \n".format(', '.join(birthdays))
-            else:
                 response = " "
+            else:
+                response = "Happy birthday to {0}! I hope it's excellent! \n \n".format(', '.join(birthdays))
             system_channel = guild.system_channel  # find the system channel
             quote = daily_inspirations.daily_inspiration()
             await system_channel.send("Today's announcements! \n \n {0}"
