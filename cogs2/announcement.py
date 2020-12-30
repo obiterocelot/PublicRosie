@@ -20,8 +20,7 @@ class Announcement(commands.Cog):
                 response = "Happy birthday to {0}! I hope it's excellent! \n \n".format(', '.join(birthdays))
             system_channel = guild.system_channel  # find the system channel
             quote = daily_inspirations.daily_inspiration()
-            await system_channel.send("Today's announcements! \n \n {0}"
-                                      "Have an excellent day and don't forget: {1}".format(response, quote))
+            await system_channel.send("Have a wonderful morning, afternoon, evening or night and don't forget: {1}".format(response, quote))
         await self.bot.close()  # once completed, close bot down.
 
 
